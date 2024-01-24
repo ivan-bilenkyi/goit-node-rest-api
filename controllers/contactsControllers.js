@@ -33,11 +33,9 @@ const createContact = async (req, res) => {
 
 const updateContact = async (req, res) => {
   const { id } = req.params;
-  const { name, email, phone } = req.body;
-  if (!(name || email || phone)) {
-    throw HttpError(400, "Body must have at least one field");
-  }
-  const result = await contactsService.updateById(id, name, email, phone);
+  const updatedItem = req.body;
+
+  const result = await contactsService.updateById(id, updatedItem);
   if (!result) {
     throw HttpError(404);
   }
