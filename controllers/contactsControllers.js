@@ -1,9 +1,12 @@
 const HttpError = require("../helpers/HttpError");
 const controllerWrapper = require("../helpers/controllerWrapper");
 const contactsService = require("../services/contactsServices");
+const Contact = require("../models/contacts");
 
 const getAllContacts = async (req, res) => {
-  const result = await contactsService.listContacts();
+  // const result = await contactsService.listContacts();
+  console.log("test");
+  const result = await Contact.find();
   res.json(result);
 };
 
@@ -26,8 +29,9 @@ const deleteContact = async (req, res) => {
 };
 
 const createContact = async (req, res) => {
-  const { name, email, phone } = req.body;
-  const result = await contactsService.addContact(name, email, phone);
+  // const { name, email, phone } = req.body;
+  // const result = await contactsService.addContact(name, email, phone);
+  const result = await Contact.create(req.body);
   res.status(201).json(result);
 };
 

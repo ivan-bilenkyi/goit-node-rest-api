@@ -8,9 +8,7 @@ const createContactSchema = Joi.object({
       tlds: { allow: ["com", "net"] },
     })
     .required(),
-  phone: Joi.string()
-    .regex(/^(\+\d{2})?(\d{10}|\d{3}-\d{3}-\d{2}-\d{2})$/)
-    .required(),
+  phone: Joi.string().min(3).max(10).required(),
 });
 
 const updateContactSchema = Joi.object({
@@ -19,7 +17,7 @@ const updateContactSchema = Joi.object({
     minDomainSegments: 2,
     tlds: { allow: ["com", "net"] },
   }),
-  phone: Joi.string().regex(/^(\+\d{2})?(\d{10}|\d{3}-\d{3}-\d{2}-\d{2})$/),
+  phone: Joi.string().min(3).max(10),
 })
   .min(1)
   .message("Body must have at least one field");
