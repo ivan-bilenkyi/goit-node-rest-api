@@ -1,16 +1,13 @@
 const express = require("express");
-// const morgan = require("morgan");
+const morgan = require("morgan");
 const cors = require("cors");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv").config();
-
-const { DB_HOST } = process.env;
-
-const contactsRouter = require("./routes/contactsRouter.js");
+require("dotenv").config();
 
 const app = express();
 
-// app.use(morgan("tiny"));
+const contactsRouter = require("./routes/contactsRouter.js");
+
+app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
 
