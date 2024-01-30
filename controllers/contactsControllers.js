@@ -1,5 +1,4 @@
-const HttpError = require("../helpers/HttpError");
-const controllerWrapper = require("../helpers/controllerWrapper");
+const { HttpError, controllerWrapper } = require("../helpers");
 const { Contact } = require("../models/contacts");
 
 const getAllContacts = async (req, res) => {
