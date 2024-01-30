@@ -1,6 +1,7 @@
 const Joi = require("joi");
 const { Schema, model } = require("mongoose");
-const handleMongooseError = require("../helpers/handleMongooseError");
+const { handleMongooseError } = require("../helpers");
+const { validateBody } = require("../middlewares");
 
 const contactSchema = new Schema(
   {
@@ -51,11 +52,15 @@ const updateFavotireSchema = Joi.object({
   favorite: Joi.boolean().required(),
 });
 
+const schemas = {
+  createContactSchema: validateBody(createContactSchema),
+  updateContactSchema: validateBody(updateContactSchema),
+  updateFavotireSchema: validateBody(updateFavotireSchema),
+};
+
 const Contact = model("contact", contactSchema);
 
 module.exports = {
   Contact,
-  createContactSchema,
-  updateContactSchema,
-  updateFavotireSchema,
+  schemas,
 };
