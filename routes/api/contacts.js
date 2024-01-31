@@ -6,7 +6,7 @@ const {
   createContact,
   updateContact,
   updateStatusContact,
-} = require("../../controllers/contactsControllers.js");
+} = require("../../controllers/contacts");
 
 const { validateBody, isValidId } = require("../../middlewares");
 const { schemas } = require("../../models/contacts.js");
@@ -19,14 +19,22 @@ contactsRouter.get("/:id", getOneContact);
 
 contactsRouter.delete("/:id", deleteContact);
 
-contactsRouter.post("/", schemas.createContactSchema, createContact);
+contactsRouter.post(
+  "/",
+  validateBody(schemas.createContactSchema),
+  createContact
+);
 
-contactsRouter.put("/:id", schemas.updateContactSchema, updateContact);
+contactsRouter.put(
+  "/:id",
+  validateBody(schemas.updateContactSchema),
+  updateContact
+);
 
 contactsRouter.patch(
   "/:id/favorite",
   isValidId,
-  schemas.updateFavotireSchema,
+  validateBody(schemas.updateFavotireSchema),
   updateStatusContact
 );
 

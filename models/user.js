@@ -42,8 +42,8 @@ const loginSchema = Joi.object({
 });
 
 const schemas = {
-  registerSchema: validateBody(registerSchema),
-  loginSchema: validateBody(loginSchema),
+  registerSchema,
+  loginSchema,
 };
 
 const User = model("user", userSchema);

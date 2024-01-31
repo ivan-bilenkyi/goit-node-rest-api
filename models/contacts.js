@@ -53,9 +53,9 @@ const updateFavotireSchema = Joi.object({
 });
 
 const schemas = {
-  createContactSchema: validateBody(createContactSchema),
-  updateContactSchema: validateBody(updateContactSchema),
-  updateFavotireSchema: validateBody(updateFavotireSchema),
+  createContactSchema,
+  updateContactSchema,
+  updateFavotireSchema,
 };
 
 const Contact = model("contact", contactSchema);
