@@ -11,13 +11,20 @@ const contactSchema = new Schema(
     },
     email: {
       type: String,
+      required: true,
     },
     phone: {
       type: String,
+      required: true,
     },
     favorite: {
       type: Boolean,
       default: false,
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
     },
   },
   {
@@ -53,9 +60,9 @@ const updateFavotireSchema = Joi.object({
 });
 
 const schemas = {
-  createContactSchema: validateBody(createContactSchema),
-  updateContactSchema: validateBody(updateContactSchema),
-  updateFavotireSchema: validateBody(updateFavotireSchema),
+  createContactSchema,
+  updateContactSchema,
+  updateFavotireSchema,
 };
 
 const Contact = model("contact", contactSchema);
