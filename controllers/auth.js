@@ -72,7 +72,7 @@ const updateSubscription = async (req, res) => {
 
   await User.findByIdAndUpdate(_id, { subscription });
 
-  res.status(200).json({
+  res.json({
     email,
     subscription,
   });
