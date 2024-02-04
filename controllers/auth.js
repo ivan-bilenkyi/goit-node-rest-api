@@ -3,8 +3,6 @@ const jwt = require("jsonwebtoken");
 
 const { SECRET_KEY } = process.env;
 
-// const SECRET_KEY = "2b0131f0-mead-3478-9geu-43e9545c5746";
-
 const { HttpError, controllerWrapper } = require("../helpers");
 const { User } = require("../models/user");
 
@@ -65,11 +63,25 @@ const logout = async (req, res) => {
   const { _id } = req.user;
   await User.findByIdAndUpdate(_id, { token: "" });
 
-  res.status(204).json("");
+  res.status(204).json();
+};
+
+const updateSubscription = async (req, res) => {
+  const { _id, email } = req.user;
+  const { subscription } = req.body;
+
+  const result = await User.findByIdAndUpdate(_id, { subscription });
+
+  res.status(200).json({
+    email,
+    subscription,
+  });
 };
 
 module.exports = {
   register: controllerWrapper(register),
   login: controllerWrapper(login),
   getCurrent: controllerWrapper(getCurrent),
+  logout: controllerWrapper(logout),
+  updateSubscription: controllerWrapper(updateSubscription),
 };
