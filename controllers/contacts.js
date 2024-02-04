@@ -2,16 +2,23 @@ const { HttpError, controllerWrapper } = require("../helpers");
 const { Contact } = require("../models/contacts");
 
 const getAllContacts = async (req, res) => {
-  const { page = 1, limit = 10 } = req.query;
+  const { _id } = req.user;
+  const { page = 1, limit = 10, favorite } = req.query;
   const skip = (page - 1) * limit;
 
-  const result = await Contact.find({}, "-createdAt -updatedAt", {
+  const filterConditions = { owner: _id };
+
+  if (favorite !== undefined) {
+    filterConditions.favorite = favorite;
+  }
+
+  const result = await Contact.find(filterConditions, "-createdAt -updatedAt", {
     skip,
     limit,
-  });
+  }).populate("owner", "name email");
+
   res.json(result);
 };
-
 const getOneContact = async (req, res) => {
   const { id } = req.params;
   const result = await Contact.findById(id);

@@ -46,6 +46,7 @@ const createContactSchema = Joi.object({
     .required(),
 
   phone: Joi.string().required(),
+  favorite: Joi.boolean(),
 });
 
 const updateContactSchema = Joi.object({
