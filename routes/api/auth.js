@@ -4,6 +4,8 @@ const { validateBody, authenticate, upload } = require("../../middlewares");
 const { schemas } = require("../../models/user");
 const {
   register,
+  verifyEmail,
+  recentVerifyEmail,
   login,
   getCurrent,
   logout,
@@ -14,9 +16,18 @@ const {
 const router = express.Router();
 
 router.post("/register", validateBody(schemas.registerSchema), register);
+
+router.get("/users/verify/:verificationToken", verifyEmail);
+router.post(
+  "/users/verify",
+  validateBody(schemas.emailSchema),
+  recentVerifyEmail
+);
+
 router.post("/login", validateBody(schemas.loginSchema), login);
 router.get("/current", authenticate, getCurrent);
 router.get("/logout", authenticate, logout);
+
 router.patch(
   "/users",
   authenticate,
